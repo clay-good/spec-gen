@@ -1,0 +1,871 @@
+{
+  "projectName": "@fission-ai/openspec",
+  "projectType": "node-typescript",
+  "frameworks": [
+    "Vitest",
+    "GitHub Actions"
+  ],
+  "architecture": {
+    "pattern": "unknown",
+    "layers": [
+      {
+        "name": "Infrastructure Layer",
+        "purpose": "Configuration, middleware, and utilities",
+        "files": [
+          "src/core/global-config.ts",
+          "src/core/project-config.ts",
+          "src/core/config.ts",
+          "src/telemetry/config.ts",
+          "src/utils/change-utils.ts",
+          "src/commands/config.ts",
+          "src/utils/shell-detection.ts",
+          "tsconfig.json",
+          "eslint.config.js",
+          "test/core/global-config.test.ts",
+          "src/utils/file-system.ts",
+          "src/utils/interactive.ts",
+          "src/utils/task-progress.ts",
+          "src/utils/change-metadata.ts",
+          "test/core/project-config.test.ts",
+          "vitest.config.ts",
+          ".changeset/config.json",
+          "package.json",
+          "test/commands/config.test.ts",
+          "test/telemetry/config.test.ts",
+          "src/utils/match.ts",
+          "src/utils/item-discovery.ts",
+          "src/utils/index.ts",
+          ".actrc",
+          "test/utils/change-metadata.test.ts",
+          "test/utils/file-system.test.ts",
+          "test/utils/interactive.test.ts",
+          "test/utils/change-utils.test.ts",
+          "test/utils/marker-updates.test.ts",
+          "test/utils/shell-detection.test.ts"
+        ],
+        "representativeFile": "src/core/global-config.ts"
+      }
+    ]
+  },
+  "domains": [
+    {
+      "name": "completions",
+      "suggestedSpecPath": "openspec/specs/completions/spec.md",
+      "files": [
+        "src/core/completions/types.ts",
+        "src/core/completions/completion-provider.ts",
+        "src/core/completions/factory.ts",
+        "src/core/completions/generators/bash-generator.ts",
+        "src/core/completions/generators/zsh-generator.ts",
+        "src/core/completions/generators/fish-generator.ts",
+        "src/core/completions/generators/powershell-generator.ts",
+        "src/core/completions/installers/bash-installer.ts",
+        "src/core/completions/installers/zsh-installer.ts",
+        "src/core/completions/installers/powershell-installer.ts",
+        "src/core/completions/installers/fish-installer.ts",
+        "src/core/completions/command-registry.ts",
+        "src/core/completions/templates/bash-templates.ts",
+        "src/core/completions/templates/zsh-templates.ts",
+        "src/core/completions/templates/powershell-templates.ts",
+        "src/core/completions/templates/fish-templates.ts"
+      ],
+      "entities": [
+        "CompletionProvider",
+        "Factory",
+        "BashGenerator",
+        "ZshGenerator",
+        "FishGenerator"
+      ],
+      "keyFile": "src/core/completions/types.ts"
+    },
+    {
+      "name": "command-generation",
+      "suggestedSpecPath": "openspec/specs/command-generation/spec.md",
+      "files": [
+        "src/core/command-generation/types.ts",
+        "src/core/command-generation/registry.ts",
+        "src/core/command-generation/adapters/cursor.ts",
+        "src/core/command-generation/adapters/windsurf.ts",
+        "src/core/command-generation/adapters/claude.ts",
+        "src/core/command-generation/adapters/antigravity.ts",
+        "src/core/command-generation/adapters/iflow.ts",
+        "src/core/command-generation/adapters/codebuddy.ts",
+        "src/core/command-generation/adapters/qwen.ts",
+        "src/core/command-generation/adapters/cline.ts",
+        "src/core/command-generation/adapters/continue.ts",
+        "src/core/command-generation/adapters/factory.ts",
+        "src/core/command-generation/adapters/opencode.ts",
+        "src/core/command-generation/adapters/costrict.ts",
+        "src/core/command-generation/adapters/amazon-q.ts",
+        "src/core/command-generation/adapters/gemini.ts",
+        "src/core/command-generation/adapters/github-copilot.ts",
+        "src/core/command-generation/adapters/codex.ts",
+        "src/core/command-generation/adapters/roocode.ts",
+        "src/core/command-generation/adapters/qoder.ts",
+        "src/core/command-generation/adapters/crush.ts",
+        "src/core/command-generation/adapters/auggie.ts",
+        "src/core/command-generation/adapters/kilocode.ts",
+        "src/core/command-generation/generator.ts",
+        "src/core/command-generation/index.ts",
+        "src/core/command-generation/adapters/index.ts"
+      ],
+      "entities": [
+        "Registry",
+        "Cursor",
+        "Windsurf",
+        "Claude",
+        "Antigravity"
+      ],
+      "keyFile": "src/core/command-generation/types.ts"
+    },
+    {
+      "name": "artifact-graph",
+      "suggestedSpecPath": "openspec/specs/artifact-graph/spec.md",
+      "files": [
+        "src/core/artifact-graph/types.ts",
+        "src/core/artifact-graph/schema.ts",
+        "src/core/artifact-graph/resolver.ts",
+        "src/core/artifact-graph/instruction-loader.ts",
+        "src/core/artifact-graph/graph.ts",
+        "src/core/artifact-graph/state.ts",
+        "src/core/artifact-graph/index.ts"
+      ],
+      "entities": [
+        "Schema",
+        "Resolver",
+        "InstructionLoader",
+        "Graph",
+        "State"
+      ],
+      "keyFile": "src/core/artifact-graph/types.ts"
+    },
+    {
+      "name": "schemas",
+      "suggestedSpecPath": "openspec/specs/schemas/spec.md",
+      "files": [
+        "src/core/schemas/change.schema.ts",
+        "src/core/schemas/base.schema.ts",
+        "schemas/spec-driven/schema.yaml",
+        "src/core/schemas/spec.schema.ts",
+        "schemas/spec-driven/templates/tasks.md",
+        "schemas/spec-driven/templates/spec.md",
+        "schemas/spec-driven/templates/design.md",
+        "schemas/spec-driven/templates/proposal.md",
+        "src/core/schemas/index.ts"
+      ],
+      "entities": [
+        "ChangeSchema",
+        "BaseSchema",
+        "SchemaYaml",
+        "SpecSchema",
+        "TasksMd"
+      ],
+      "keyFile": "src/core/schemas/change.schema.ts"
+    },
+    {
+      "name": "validation",
+      "suggestedSpecPath": "openspec/specs/validation/spec.md",
+      "files": [
+        "src/core/validation/types.ts",
+        "src/core/validation/validator.ts",
+        "src/core/validation/constants.ts"
+      ],
+      "entities": [
+        "Validator"
+      ],
+      "keyFile": "src/core/validation/types.ts"
+    },
+    {
+      "name": "commands",
+      "suggestedSpecPath": "openspec/specs/commands/spec.md",
+      "files": [
+        "src/commands/workflow/schemas.ts",
+        "src/commands/feedback.ts",
+        "src/commands/schema.ts",
+        "src/commands/workflow/status.ts",
+        "src/commands/workflow/new-change.ts",
+        "src/commands/workflow/templates.ts",
+        "src/commands/workflow/shared.ts",
+        "src/commands/workflow/instructions.ts",
+        "src/commands/validate.ts",
+        "src/commands/spec.ts",
+        "src/commands/completion.ts",
+        "src/commands/show.ts",
+        "src/commands/change.ts",
+        "src/commands/workflow/index.ts"
+      ],
+      "entities": [
+        "Schemas",
+        "Feedback",
+        "Schema",
+        "Status",
+        "NewChange"
+      ],
+      "keyFile": "src/commands/workflow/schemas.ts"
+    },
+    {
+      "name": "parsers",
+      "suggestedSpecPath": "openspec/specs/parsers/spec.md",
+      "files": [
+        "src/core/parsers/requirement-blocks.ts",
+        "src/core/parsers/change-parser.ts",
+        "src/core/parsers/markdown-parser.ts"
+      ],
+      "entities": [
+        "RequirementBlocks",
+        "ChangeParser",
+        "MarkdownParser"
+      ],
+      "keyFile": "src/core/parsers/requirement-blocks.ts"
+    },
+    {
+      "name": "templates",
+      "suggestedSpecPath": "openspec/specs/templates/spec.md",
+      "files": [
+        "src/core/templates/skill-templates.ts",
+        "src/core/templates/index.ts"
+      ],
+      "entities": [
+        "SkillTemplates"
+      ],
+      "keyFile": "src/core/templates/skill-templates.ts"
+    },
+    {
+      "name": "users",
+      "suggestedSpecPath": "openspec/specs/users/spec.md",
+      "files": [
+        "Users/user/Documents/spec-gen-dev/examples/openspec-analysis/llm-context.json",
+        "Users/user/Documents/spec-gen-dev/examples/openspec-analysis/SUMMARY.md",
+        "Users/user/Documents/spec-gen-dev/examples/openspec-analysis/dependency-graph.json",
+        "Users/user/Documents/spec-gen-dev/examples/openspec-analysis/repo-structure.json",
+        "Users/user/Documents/spec-gen-dev/examples/openspec-analysis/dependencies.mermaid"
+      ],
+      "entities": [
+        "LlmContextJson",
+        "SUMMARYMd",
+        "DependencyGraphJson",
+        "RepoStructureJson",
+        "DependenciesMermaid"
+      ],
+      "keyFile": "Users/user/Documents/spec-gen-dev/examples/openspec-analysis/llm-context.json"
+    },
+    {
+      "name": "ui",
+      "suggestedSpecPath": "openspec/specs/ui/spec.md",
+      "files": [
+        "src/ui/ascii-patterns.ts",
+        "src/ui/welcome-screen.ts"
+      ],
+      "entities": [
+        "AsciiPatterns",
+        "WelcomeScreen"
+      ],
+      "keyFile": "src/ui/ascii-patterns.ts"
+    },
+    {
+      "name": "readme-md",
+      "suggestedSpecPath": "openspec/specs/readme-md/spec.md",
+      "files": [
+        "README.md",
+        ".changeset/README.md",
+        ".devcontainer/README.md"
+      ],
+      "entities": [
+        "READMEMd"
+      ],
+      "keyFile": "README.md"
+    },
+    {
+      "name": "index-ts",
+      "suggestedSpecPath": "openspec/specs/index-ts/spec.md",
+      "files": [
+        "src/core/shared/index.ts",
+        "src/core/index.ts",
+        "src/utils/index.ts",
+        "src/index.ts"
+      ],
+      "entities": [],
+      "keyFile": "src/core/shared/index.ts"
+    },
+    {
+      "name": "docs",
+      "suggestedSpecPath": "openspec/specs/docs/spec.md",
+      "files": [
+        "docs/concepts.md",
+        "docs/workflows.md",
+        "docs/customization.md",
+        "docs/supported-tools.md",
+        "docs/getting-started.md",
+        "docs/multi-language.md",
+        "docs/installation.md",
+        "docs/cli.md",
+        "docs/migration-guide.md",
+        "docs/commands.md",
+        "docs/opsx.md"
+      ],
+      "entities": [
+        "ConceptsMd",
+        "WorkflowsMd",
+        "CustomizationMd",
+        "SupportedToolsMd",
+        "GettingStartedMd"
+      ],
+      "keyFile": "docs/concepts.md"
+    },
+    {
+      "name": "scripts",
+      "suggestedSpecPath": "openspec/specs/scripts/spec.md",
+      "files": [
+        "scripts/postinstall.js",
+        "scripts/test-postinstall.sh",
+        "scripts/pack-version-check.mjs",
+        "scripts/update-flake.sh",
+        "scripts/README.md"
+      ],
+      "entities": [
+        "Postinstall",
+        "TestPostinstallSh",
+        "PackVersionCheckMjs",
+        "UpdateFlakeSh",
+        "READMEMd"
+      ],
+      "keyFile": "scripts/postinstall.js"
+    },
+    {
+      "name": "workflows",
+      "suggestedSpecPath": "openspec/specs/workflows/spec.md",
+      "files": [
+        ".github/workflows/release-prepare.yml",
+        ".github/workflows/ci.yml",
+        ".github/workflows/README.md"
+      ],
+      "entities": [
+        "ReleasePrepareYml",
+        "CiYml",
+        "READMEMd"
+      ],
+      "keyFile": ".github/workflows/release-prepare.yml"
+    },
+    {
+      "name": "change",
+      "suggestedSpecPath": "openspec/specs/change/spec.md",
+      "files": [
+        "src/core/schemas/change.schema.ts",
+        "src/core/parsers/change-parser.ts",
+        "src/utils/change-utils.ts",
+        "src/utils/change-metadata.ts"
+      ],
+      "entities": [
+        "ChangeSchema",
+        "ChangeParser",
+        "ChangeUtils",
+        "ChangeMetadata"
+      ],
+      "keyFile": "src/core/schemas/change.schema.ts"
+    },
+    {
+      "name": "skill",
+      "suggestedSpecPath": "openspec/specs/skill/spec.md",
+      "files": [
+        "src/core/shared/skill-generation.ts",
+        "src/core/templates/skill-templates.ts"
+      ],
+      "entities": [
+        "SkillGeneration",
+        "SkillTemplates"
+      ],
+      "keyFile": "src/core/shared/skill-generation.ts"
+    },
+    {
+      "name": "bash",
+      "suggestedSpecPath": "openspec/specs/bash/spec.md",
+      "files": [
+        "src/core/completions/generators/bash-generator.ts",
+        "src/core/completions/installers/bash-installer.ts",
+        "src/core/completions/templates/bash-templates.ts"
+      ],
+      "entities": [
+        "BashGenerator",
+        "BashInstaller",
+        "BashTemplates"
+      ],
+      "keyFile": "src/core/completions/generators/bash-generator.ts"
+    },
+    {
+      "name": "zsh",
+      "suggestedSpecPath": "openspec/specs/zsh/spec.md",
+      "files": [
+        "src/core/completions/generators/zsh-generator.ts",
+        "src/core/completions/installers/zsh-installer.ts",
+        "src/core/completions/templates/zsh-templates.ts"
+      ],
+      "entities": [
+        "ZshGenerator",
+        "ZshInstaller",
+        "ZshTemplates"
+      ],
+      "keyFile": "src/core/completions/generators/zsh-generator.ts"
+    },
+    {
+      "name": "fish",
+      "suggestedSpecPath": "openspec/specs/fish/spec.md",
+      "files": [
+        "src/core/completions/generators/fish-generator.ts",
+        "src/core/completions/installers/fish-installer.ts",
+        "src/core/completions/templates/fish-templates.ts"
+      ],
+      "entities": [
+        "FishGenerator",
+        "FishInstaller",
+        "FishTemplates"
+      ],
+      "keyFile": "src/core/completions/generators/fish-generator.ts"
+    },
+    {
+      "name": "powershell",
+      "suggestedSpecPath": "openspec/specs/powershell/spec.md",
+      "files": [
+        "src/core/completions/generators/powershell-generator.ts",
+        "src/core/completions/installers/powershell-installer.ts",
+        "src/core/completions/templates/powershell-templates.ts"
+      ],
+      "entities": [
+        "PowershellGenerator",
+        "PowershellInstaller",
+        "PowershellTemplates"
+      ],
+      "keyFile": "src/core/completions/generators/powershell-generator.ts"
+    },
+    {
+      "name": "core",
+      "suggestedSpecPath": "openspec/specs/core/spec.md",
+      "files": [
+        "src/core/config-schema.ts",
+        "src/core/global-config.ts",
+        "src/core/project-config.ts",
+        "src/core/config.ts",
+        "src/core/init.ts",
+        "src/core/config-prompts.ts",
+        "src/core/specs-apply.ts",
+        "src/core/list.ts",
+        "src/core/update.ts",
+        "src/core/legacy-cleanup.ts",
+        "src/core/archive.ts",
+        "src/core/view.ts",
+        "src/core/index.ts"
+      ],
+      "entities": [
+        "ConfigSchema",
+        "GlobalConfig",
+        "ProjectConfig",
+        "Config",
+        "Init"
+      ],
+      "keyFile": "src/core/config-schema.ts"
+    },
+    {
+      "name": "domain",
+      "suggestedSpecPath": "openspec/specs/domain/spec.md",
+      "files": [
+        "src/core/schemas/change.schema.ts",
+        "src/core/schemas/base.schema.ts",
+        "src/core/schemas/spec.schema.ts",
+        "src/core/schemas/index.ts"
+      ],
+      "entities": [
+        "ChangeSchema",
+        "BaseSchema",
+        "SpecSchema"
+      ],
+      "keyFile": "src/core/schemas/change.schema.ts"
+    },
+    {
+      "name": "workflow",
+      "suggestedSpecPath": "openspec/specs/workflow/spec.md",
+      "files": [
+        "src/commands/workflow/schemas.ts",
+        "src/commands/workflow/status.ts",
+        "src/commands/workflow/new-change.ts",
+        "src/commands/workflow/templates.ts",
+        "src/commands/workflow/shared.ts",
+        "src/commands/workflow/instructions.ts",
+        "src/commands/workflow/index.ts"
+      ],
+      "entities": [
+        "Schemas",
+        "Status",
+        "NewChange",
+        "Templates",
+        "Shared"
+      ],
+      "keyFile": "src/commands/workflow/schemas.ts"
+    },
+    {
+      "name": "telemetry",
+      "suggestedSpecPath": "openspec/specs/telemetry/spec.md",
+      "files": [
+        "src/telemetry/config.ts",
+        "src/telemetry/index.ts"
+      ],
+      "entities": [
+        "Config"
+      ],
+      "keyFile": "src/telemetry/config.ts"
+    },
+    {
+      "name": "shared",
+      "suggestedSpecPath": "openspec/specs/shared/spec.md",
+      "files": [
+        "src/core/shared/skill-generation.ts",
+        "src/core/shared/tool-detection.ts",
+        "src/core/shared/index.ts"
+      ],
+      "entities": [
+        "SkillGeneration",
+        "ToolDetection"
+      ],
+      "keyFile": "src/core/shared/skill-generation.ts"
+    },
+    {
+      "name": "utilities",
+      "suggestedSpecPath": "openspec/specs/utilities/spec.md",
+      "files": [
+        "src/utils/change-utils.ts",
+        "src/utils/shell-detection.ts",
+        "src/utils/file-system.ts",
+        "src/utils/interactive.ts",
+        "src/utils/task-progress.ts",
+        "src/utils/change-metadata.ts",
+        "src/utils/match.ts",
+        "src/utils/item-discovery.ts",
+        "src/utils/index.ts"
+      ],
+      "entities": [
+        "ChangeUtils",
+        "ShellDetection",
+        "FileSystem",
+        "Interactive",
+        "TaskProgress"
+      ],
+      "keyFile": "src/utils/change-utils.ts"
+    },
+    {
+      "name": "generators",
+      "suggestedSpecPath": "openspec/specs/generators/spec.md",
+      "files": [
+        "src/core/completions/generators/bash-generator.ts",
+        "src/core/completions/generators/zsh-generator.ts",
+        "src/core/completions/generators/fish-generator.ts",
+        "src/core/completions/generators/powershell-generator.ts"
+      ],
+      "entities": [
+        "BashGenerator",
+        "ZshGenerator",
+        "FishGenerator",
+        "PowershellGenerator"
+      ],
+      "keyFile": "src/core/completions/generators/bash-generator.ts"
+    },
+    {
+      "name": "installers",
+      "suggestedSpecPath": "openspec/specs/installers/spec.md",
+      "files": [
+        "src/core/completions/installers/bash-installer.ts",
+        "src/core/completions/installers/zsh-installer.ts",
+        "src/core/completions/installers/powershell-installer.ts",
+        "src/core/completions/installers/fish-installer.ts"
+      ],
+      "entities": [
+        "BashInstaller",
+        "ZshInstaller",
+        "PowershellInstaller",
+        "FishInstaller"
+      ],
+      "keyFile": "src/core/completions/installers/bash-installer.ts"
+    },
+    {
+      "name": "tsconfig-json",
+      "suggestedSpecPath": "openspec/specs/tsconfig-json/spec.md",
+      "files": [
+        "tsconfig.json",
+        "eslint.config.js",
+        "vitest.config.ts",
+        "CHANGELOG.md",
+        "openspec-parallel-merge-plan.md",
+        "README.md",
+        ".gitignore",
+        "package.json",
+        "flake.nix",
+        "README_OLD.md",
+        ".actrc",
+        "LICENSE",
+        "MAINTAINERS.md",
+        "build.js",
+        "AGENTS.md",
+        ".coderabbit.yaml",
+        "vitest.setup.ts"
+      ],
+      "entities": [
+        "TsconfigJson",
+        "EslintConfig",
+        "VitestConfig",
+        "CHANGELOGMd",
+        "OpenspecParallelMergePlanMd"
+      ],
+      "keyFile": "tsconfig.json"
+    },
+    {
+      "name": "openspec-analysis",
+      "suggestedSpecPath": "openspec/specs/openspec-analysis/spec.md",
+      "files": [
+        "Users/user/Documents/spec-gen-dev/examples/openspec-analysis/llm-context.json",
+        "Users/user/Documents/spec-gen-dev/examples/openspec-analysis/SUMMARY.md",
+        "Users/user/Documents/spec-gen-dev/examples/openspec-analysis/dependency-graph.json",
+        "Users/user/Documents/spec-gen-dev/examples/openspec-analysis/repo-structure.json",
+        "Users/user/Documents/spec-gen-dev/examples/openspec-analysis/dependencies.mermaid"
+      ],
+      "entities": [
+        "LlmContextJson",
+        "SUMMARYMd",
+        "DependencyGraphJson",
+        "RepoStructureJson",
+        "DependenciesMermaid"
+      ],
+      "keyFile": "Users/user/Documents/spec-gen-dev/examples/openspec-analysis/llm-context.json"
+    },
+    {
+      "name": "adapters",
+      "suggestedSpecPath": "openspec/specs/adapters/spec.md",
+      "files": [
+        "src/core/command-generation/adapters/cursor.ts",
+        "src/core/command-generation/adapters/windsurf.ts",
+        "src/core/command-generation/adapters/claude.ts",
+        "src/core/command-generation/adapters/antigravity.ts",
+        "src/core/command-generation/adapters/iflow.ts",
+        "src/core/command-generation/adapters/codebuddy.ts",
+        "src/core/command-generation/adapters/qwen.ts",
+        "src/core/command-generation/adapters/cline.ts",
+        "src/core/command-generation/adapters/continue.ts",
+        "src/core/command-generation/adapters/factory.ts",
+        "src/core/command-generation/adapters/opencode.ts",
+        "src/core/command-generation/adapters/costrict.ts",
+        "src/core/command-generation/adapters/amazon-q.ts",
+        "src/core/command-generation/adapters/gemini.ts",
+        "src/core/command-generation/adapters/github-copilot.ts",
+        "src/core/command-generation/adapters/codex.ts",
+        "src/core/command-generation/adapters/roocode.ts",
+        "src/core/command-generation/adapters/qoder.ts",
+        "src/core/command-generation/adapters/crush.ts",
+        "src/core/command-generation/adapters/auggie.ts",
+        "src/core/command-generation/adapters/kilocode.ts",
+        "src/core/command-generation/adapters/index.ts"
+      ],
+      "entities": [
+        "Cursor",
+        "Windsurf",
+        "Claude",
+        "Antigravity",
+        "Iflow"
+      ],
+      "keyFile": "src/core/command-generation/adapters/cursor.ts"
+    },
+    {
+      "name": "changeset",
+      "suggestedSpecPath": "openspec/specs/changeset/spec.md",
+      "files": [
+        ".changeset/config.json",
+        ".changeset/README.md"
+      ],
+      "entities": [
+        "ConfigJson",
+        "READMEMd"
+      ],
+      "keyFile": ".changeset/config.json"
+    },
+    {
+      "name": "devcontainer",
+      "suggestedSpecPath": "openspec/specs/devcontainer/spec.md",
+      "files": [
+        ".devcontainer/README.md",
+        ".devcontainer/devcontainer.json"
+      ],
+      "entities": [
+        "READMEMd",
+        "DevcontainerJson"
+      ],
+      "keyFile": ".devcontainer/README.md"
+    }
+  ],
+  "entryPoints": [
+    {
+      "file": "src/core/command-generation/index.ts",
+      "type": "application-entry",
+      "initializes": [
+        "application"
+      ]
+    },
+    {
+      "file": "src/cli/index.ts",
+      "type": "application-entry",
+      "initializes": [
+        "application"
+      ]
+    },
+    {
+      "file": "src/telemetry/index.ts",
+      "type": "application-entry",
+      "initializes": [
+        "application"
+      ]
+    },
+    {
+      "file": "src/core/shared/index.ts",
+      "type": "application-entry",
+      "initializes": [
+        "application"
+      ]
+    },
+    {
+      "file": "src/core/schemas/index.ts",
+      "type": "application-entry",
+      "initializes": [
+        "application"
+      ]
+    },
+    {
+      "file": "src/core/templates/index.ts",
+      "type": "application-entry",
+      "initializes": [
+        "application"
+      ]
+    },
+    {
+      "file": "src/core/command-generation/adapters/index.ts",
+      "type": "application-entry",
+      "initializes": [
+        "application"
+      ]
+    },
+    {
+      "file": "src/core/artifact-graph/index.ts",
+      "type": "application-entry",
+      "initializes": [
+        "application"
+      ]
+    },
+    {
+      "file": "src/core/index.ts",
+      "type": "application-entry",
+      "initializes": [
+        "application"
+      ]
+    },
+    {
+      "file": "src/utils/index.ts",
+      "type": "application-entry",
+      "initializes": [
+        "application"
+      ]
+    },
+    {
+      "file": "src/commands/workflow/index.ts",
+      "type": "application-entry",
+      "initializes": [
+        "application"
+      ]
+    },
+    {
+      "file": "build.js",
+      "type": "build-entry",
+      "initializes": []
+    },
+    {
+      "file": "src/index.ts",
+      "type": "application-entry",
+      "initializes": [
+        "application"
+      ]
+    },
+    {
+      "file": "scripts/postinstall.js",
+      "type": "application-entry",
+      "initializes": []
+    },
+    {
+      "file": "scripts/test-postinstall.sh",
+      "type": "test-entry",
+      "initializes": []
+    },
+    {
+      "file": "scripts/pack-version-check.mjs",
+      "type": "application-entry",
+      "initializes": []
+    },
+    {
+      "file": "scripts/update-flake.sh",
+      "type": "application-entry",
+      "initializes": []
+    },
+    {
+      "file": "docs/cli.md",
+      "type": "application-entry",
+      "initializes": []
+    }
+  ],
+  "dataFlow": {
+    "sources": [],
+    "sinks": [],
+    "transformers": []
+  },
+  "keyFiles": {
+    "schemas": [
+      "src/core/config-schema.ts",
+      "src/core/schemas/change.schema.ts",
+      "src/core/schemas/base.schema.ts",
+      "src/core/artifact-graph/schema.ts",
+      "src/commands/workflow/schemas.ts",
+      "schemas/spec-driven/schema.yaml",
+      "src/core/schemas/spec.schema.ts",
+      "src/commands/schema.ts",
+      "test/core/artifact-graph/schema.test.ts",
+      "test/core/config-schema.test.ts",
+      "test/commands/schema.test.ts",
+      "schemas/spec-driven/templates/tasks.md",
+      "schemas/spec-driven/templates/spec.md",
+      "schemas/spec-driven/templates/design.md",
+      "schemas/spec-driven/templates/proposal.md",
+      "src/core/schemas/index.ts"
+    ],
+    "config": [
+      "src/core/global-config.ts",
+      "src/core/project-config.ts",
+      "src/core/config.ts",
+      "src/telemetry/config.ts",
+      "src/commands/config.ts",
+      "tsconfig.json",
+      "eslint.config.js",
+      "test/core/global-config.test.ts",
+      "test/core/project-config.test.ts",
+      "vitest.config.ts",
+      ".changeset/config.json",
+      "package.json",
+      "test/commands/config.test.ts",
+      "test/telemetry/config.test.ts",
+      ".actrc"
+    ],
+    "auth": [],
+    "database": [],
+    "routes": [],
+    "services": []
+  },
+  "statistics": {
+    "totalFiles": 231,
+    "analyzedFiles": 221,
+    "skippedFiles": 10,
+    "avgFileScore": 23,
+    "nodeCount": 221,
+    "edgeCount": 9,
+    "cycleCount": 0,
+    "clusterCount": 37
+  }
+}

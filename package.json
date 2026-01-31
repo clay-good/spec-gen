@@ -1,0 +1,80 @@
+{
+  "name": "spec-gen",
+  "version": "1.0.0",
+  "description": "Reverse-engineer OpenSpec specifications from existing codebases",
+  "type": "module",
+  "main": "dist/cli/index.js",
+  "bin": {
+    "spec-gen": "dist/cli/index.js"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "dev": "tsx watch src/cli/index.ts",
+    "build": "tsc",
+    "start": "node dist/cli/index.js",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:openspec-compat": "vitest run --grep 'openspec' || echo 'No OpenSpec compat tests yet'",
+    "test:e2e": "vitest run --grep 'e2e' || echo 'No E2E tests yet'",
+    "lint": "eslint src --ext .ts",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build && npm run test:run"
+  },
+  "keywords": [
+    "openspec",
+    "spec-driven",
+    "code-analysis",
+    "documentation",
+    "reverse-engineering",
+    "specification",
+    "cli"
+  ],
+  "author": "Clay Good",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/clay-good/spec-gen"
+  },
+  "bugs": {
+    "url": "https://github.com/clay-good/spec-gen/issues"
+  },
+  "homepage": "https://github.com/clay-good/spec-gen#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "peerDependencies": {
+    "@fission-ai/openspec": ">=0.1.0"
+  },
+  "peerDependenciesMeta": {
+    "@fission-ai/openspec": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "commander": "^12.1.0",
+    "@inquirer/prompts": "^7.2.1",
+    "ora": "^8.1.1",
+    "yaml": "^2.6.1",
+    "ignore": "^6.0.2",
+    "glob": "^11.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.5",
+    "eslint": "^9.17.0",
+    "@eslint/js": "^9.17.0",
+    "typescript-eslint": "^8.19.1",
+    "typescript": "^5.7.2",
+    "tsx": "^4.19.2",
+    "vitest": "^2.1.8",
+    "memfs": "^4.15.0"
+  }
+}

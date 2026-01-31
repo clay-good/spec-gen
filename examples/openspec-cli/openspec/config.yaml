@@ -1,0 +1,26 @@
+schema: spec-driven
+
+context: |
+  OpenSpec is an AI-native spec-driven development framework.
+
+  Tech stack: Node.js 20+, TypeScript, Commander.js, Zod, Inquirer
+  Architecture: Layered (CLI → Commands → Core → Utils)
+
+  Key patterns:
+  - Zod schemas as single source of truth
+  - Multi-location resolution (project > user > package)
+  - Adapter pattern for multi-tool AI support
+  - Interactive-first with non-TTY fallback
+
+# Auto-detected by spec-gen
+spec-gen:
+  generatedAt: "2025-01-30T12:00:00Z"
+  domains:
+    - overview
+    - validation
+    - parsing
+    - cli
+    - artifact-graph
+    - architecture
+  confidence: 0.85
+  sourceProject: "OpenSpec CLI v1.1.0"

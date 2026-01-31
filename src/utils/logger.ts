@@ -1,0 +1,371 @@
+/**
+ * Standardized logging interface for spec-gen
+ *
+ * Provides semantic log levels with specific visual treatments:
+ * - DISCOVERY: Finding files, detecting patterns, scanning directories
+ * - ANALYSIS: Parsing AST, building graphs, scoring significance
+ * - INFERENCE: LLM generating content, making decisions
+ * - SUCCESS: Tasks complete successfully
+ * - WARNING: Non-fatal issues, skipped files, fallback behavior
+ * - ERROR: Fatal errors, missing requirements
+ */
+
+import chalk from 'chalk';
+import ora, { type Ora } from 'ora';
+
+export type LogLevel = 'discovery' | 'analysis' | 'inference' | 'success' | 'warning' | 'error' | 'debug';
+
+export interface LoggerOptions {
+  quiet: boolean;
+  verbose: boolean;
+  noColor: boolean;
+  timestamps: boolean;
+}
+
+const defaultOptions: LoggerOptions = {
+  quiet: false,
+  verbose: false,
+  noColor: false,
+  timestamps: false,
+};
+
+/**
+ * Semantic prefixes for each log level
+ */
+const PREFIXES = {
+  discovery: '🔍',
+  analysis: '🔬',
+  inference: '🧠',
+  success: '✓',
+  warning: '⚠',
+  error: '✗',
+  debug: '→',
+} as const;
+
+/**
+ * Color functions for each log level
+ */
+const COLORS = {
+  discovery: chalk.cyan,
+  analysis: chalk.yellow,
+  inference: chalk.magenta,
+  success: chalk.green,
+  warning: chalk.hex('#FFA500'), // Orange
+  error: chalk.red,
+  debug: chalk.gray,
+} as const;
+
+/**
+ * Logger class providing semantic log levels and spinner support
+ */
+export class Logger {
+  private options: LoggerOptions;
+  private activeSpinner: Ora | null = null;
+
+  constructor(options: Partial<LoggerOptions> = {}) {
+    this.options = { ...defaultOptions, ...options };
+  }
+
+  /**
+   * Update logger options
+   */
+  configure(options: Partial<LoggerOptions>): void {
+    this.options = { ...this.options, ...options };
+  }
+
+  /**
+   * Get current options
+   */
+  getOptions(): LoggerOptions {
+    return { ...this.options };
+  }
+
+  /**
+   * Format a message with optional timestamp
+   */
+  private formatMessage(level: LogLevel, message: string): string {
+    const prefix = PREFIXES[level];
+    const colorFn = this.options.noColor ? (s: string) => s : COLORS[level];
+
+    let formattedMessage = `${prefix} ${message}`;
+
+    if (this.options.timestamps) {
+      const timestamp = new Date().toISOString();
+      formattedMessage = `[${timestamp}] ${formattedMessage}`;
+    }
+
+    return colorFn(formattedMessage);
+  }
+
+  /**
+   * Core log method
+   */
+  private log(level: LogLevel, message: string): void {
+    // In quiet mode, only show errors
+    if (this.options.quiet && level !== 'error') {
+      return;
+    }
+
+    // Debug messages only show in verbose mode
+    if (level === 'debug' && !this.options.verbose) {
+      return;
+    }
+
+    // Pause spinner if active to prevent overlap
+    if (this.activeSpinner) {
+      this.activeSpinner.stop();
+    }
+
+    const formattedMessage = this.formatMessage(level, message);
+
+    if (level === 'error') {
+      console.error(formattedMessage);
+    } else {
+      console.log(formattedMessage);
+    }
+
+    // Resume spinner if it was active
+    if (this.activeSpinner) {
+      this.activeSpinner.start();
+    }
+  }
+
+  /**
+   * DISCOVERY - Finding files, detecting patterns, scanning directories
+   * @example logger.discovery("Discovered 847 files across 23 directories")
+   */
+  discovery(message: string): void {
+    this.log('discovery', message);
+  }
+
+  /**
+   * ANALYSIS - Parsing AST, building graphs, scoring significance
+   * @example logger.analysis("Analyzing dependency graph...")
+   */
+  analysis(message: string): void {
+    this.log('analysis', message);
+  }
+
+  /**
+   * INFERENCE - LLM is generating content, making decisions
+   * @example logger.inference("Inferring system intent from core modules...")
+   */
+  inference(message: string): void {
+    this.log('inference', message);
+  }
+
+  /**
+   * SUCCESS - Tasks complete successfully
+   * @example logger.success("Generated openspec/specs/auth/spec.md")
+   */
+  success(message: string): void {
+    this.log('success', message);
+  }
+
+  /**
+   * WARNING - Non-fatal issues, skipped files, fallback behavior
+   * @example logger.warning("Skipped 12 binary files")
+   */
+  warning(message: string): void {
+    this.log('warning', message);
+  }
+
+  /**
+   * ERROR - Fatal errors, missing requirements
+   * @example logger.error("No .git directory found. Is this a repository?")
+   */
+  error(message: string): void {
+    this.log('error', message);
+  }
+
+  /**
+   * DEBUG - Verbose debug information (only shown with --verbose)
+   * @example logger.debug("Processing file: src/utils/helper.ts")
+   */
+  debug(message: string): void {
+    this.log('debug', message);
+  }
+
+  /**
+   * Start a spinner for long-running operations
+   * @returns Spinner control object with succeed/fail/stop methods
+   */
+  spinner(message: string): SpinnerController {
+    // Don't show spinners in quiet mode or CI (timestamps mode)
+    if (this.options.quiet || this.options.timestamps) {
+      // Return a no-op controller
+      return new SpinnerController(null, this);
+    }
+
+    // Stop any existing spinner
+    if (this.activeSpinner) {
+      this.activeSpinner.stop();
+    }
+
+    const spinner = ora({
+      text: message,
+      color: 'cyan',
+      spinner: 'dots',
+    });
+
+    if (!this.options.noColor) {
+      spinner.start();
+    } else {
+      // In no-color mode, just print the message
+      console.log(`... ${message}`);
+    }
+
+    this.activeSpinner = spinner;
+    return new SpinnerController(spinner, this);
+  }
+
+  /**
+   * Clear the active spinner reference
+   */
+  clearSpinner(): void {
+    this.activeSpinner = null;
+  }
+
+  /**
+   * Print a blank line (respects quiet mode)
+   */
+  blank(): void {
+    if (!this.options.quiet) {
+      console.log();
+    }
+  }
+
+  /**
+   * Print a section header
+   */
+  section(title: string): void {
+    if (this.options.quiet) return;
+
+    this.blank();
+    if (this.options.noColor) {
+      console.log(`=== ${title} ===`);
+    } else {
+      console.log(chalk.bold.underline(title));
+    }
+    this.blank();
+  }
+
+  /**
+   * Print a key-value pair for summaries
+   */
+  info(key: string, value: string | number): void {
+    if (this.options.quiet) return;
+
+    if (this.options.noColor) {
+      console.log(`  ${key}: ${value}`);
+    } else {
+      console.log(`  ${chalk.dim(key + ':')} ${value}`);
+    }
+  }
+
+  /**
+   * Print a list item
+   */
+  listItem(item: string, indent: number = 0): void {
+    if (this.options.quiet) return;
+
+    const prefix = '  '.repeat(indent) + '•';
+    if (this.options.noColor) {
+      console.log(`${prefix} ${item}`);
+    } else {
+      console.log(`${chalk.dim(prefix)} ${item}`);
+    }
+  }
+}
+
+/**
+ * Controller for spinner operations
+ */
+export class SpinnerController {
+  private spinner: Ora | null;
+  private logger: Logger;
+
+  constructor(spinner: Ora | null, logger: Logger) {
+    this.spinner = spinner;
+    this.logger = logger;
+  }
+
+  /**
+   * Update spinner text
+   */
+  update(message: string): void {
+    if (this.spinner) {
+      this.spinner.text = message;
+    }
+  }
+
+  /**
+   * Mark spinner as succeeded
+   */
+  succeed(message?: string): void {
+    if (this.spinner) {
+      this.spinner.succeed(message);
+    } else if (message) {
+      this.logger.success(message);
+    }
+    this.logger.clearSpinner();
+  }
+
+  /**
+   * Mark spinner as failed
+   */
+  fail(message?: string): void {
+    if (this.spinner) {
+      this.spinner.fail(message);
+    } else if (message) {
+      this.logger.error(message);
+    }
+    this.logger.clearSpinner();
+  }
+
+  /**
+   * Mark spinner as warning
+   */
+  warn(message?: string): void {
+    if (this.spinner) {
+      this.spinner.warn(message);
+    } else if (message) {
+      this.logger.warning(message);
+    }
+    this.logger.clearSpinner();
+  }
+
+  /**
+   * Stop spinner without status
+   */
+  stop(): void {
+    if (this.spinner) {
+      this.spinner.stop();
+    }
+    this.logger.clearSpinner();
+  }
+
+  /**
+   * Stop spinner and show info
+   */
+  info(message?: string): void {
+    if (this.spinner) {
+      this.spinner.info(message);
+    }
+    this.logger.clearSpinner();
+  }
+}
+
+/**
+ * Singleton logger instance for use across the application
+ */
+export const logger = new Logger();
+
+/**
+ * Configure the global logger instance
+ */
+export function configureLogger(options: Partial<LoggerOptions>): void {
+  logger.configure(options);
+}
+
+export default logger;
